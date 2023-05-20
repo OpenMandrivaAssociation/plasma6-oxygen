@@ -30,7 +30,7 @@ BuildRequires: cmake(ECM)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6Completion)
 BuildRequires: cmake(KF6Service)
-BuildRequires: cmake(KDecoration2)
+BuildRequires: cmake(KDecoration2) >= 5.27.80
 BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
