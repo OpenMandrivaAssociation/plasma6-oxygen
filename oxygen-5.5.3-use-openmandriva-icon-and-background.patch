@@ -1,0 +1,24 @@
+diff -Naur oxygen-5.5.3/lookandfeel/contents/splash/Splash.qml oxygen-5.5.3.tpg/lookandfeel/contents/splash/Splash.qml
+--- oxygen-5.5.3/lookandfeel/contents/splash/Splash.qml	2016-01-06 12:11:11.000000000 +0000
++++ oxygen-5.5.3.tpg/lookandfeel/contents/splash/Splash.qml	2016-01-18 19:26:21.437388605 +0000
+@@ -22,7 +22,7 @@
+ 
+ Image {
+     id: root
+-    source: "images/background.png"
++    source: "/usr/share/mdk/backgrounds/OpenMandriva-splash.png"
+ 
+     property int stage
+ 
+@@ -37,8 +37,10 @@
+         y: root.height
+         source: "images/rectangle.png"
+         Image {
+-            source: "images/kde.png"
++            source: "/usr/share/icons/openmandriva.svg"
+             anchors.centerIn: parent
++            sourceSize.height: 128
++            sourceSize.width: 128
+         }
+         Rectangle {
+             radius: 3

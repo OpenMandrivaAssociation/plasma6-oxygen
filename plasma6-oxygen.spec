@@ -1,0 +1,140 @@
+%define major 5
+%define libname %mklibname oxygenstyle%{major} %{major}
+%define clibname %mklibname oxygenstyleconfig%{major} %{major}
+%define plasmaver %(echo %{version} |cut -d. -f1-3)
+%define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
+
+%define git 20230520
+
+Summary: The Oxygen style for KDE 5
+Name: plasma6-oxygen
+Version:	5.240.0
+Release:	%{?git:0.%{git}.}1
+URL: http://kde.org/
+License: GPL
+Group: Graphical desktop/KDE
+%if 0%{?git:1}
+Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar.bz2#/oxygen-%{git}.tar.bz2
+%else
+Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/%{name}-%{version}.tar.xz
+%endif
+Source100: %{name}.rpmlintrc
+Patch0: oxygen-5.5.3-use-openmandriva-icon-and-background.patch
+BuildRequires: cmake(Qt6)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: pkgconfig(xcb)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(ECM)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KDecoration2)
+BuildRequires: cmake(Gettext)
+BuildRequires: cmake(KF6FrameworkIntegration)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6Wayland)
+Requires: %{libname} = %{EVRD}
+Requires: oxygen-icons >= 1:15.04.3
+Recommends: oxygen-sounds
+# needed for backgrounds and patch 2
+Requires: distro-theme-OpenMandriva
+
+%description
+The Oxygen style for KDE 5.
+
+%package -n %{libname}
+Summary: KDE Frameworks 5 Oxygen framework
+Group: System/Libraries
+Requires: %{name} = %{EVRD}
+
+%description -n %{libname}
+KDE Frameworks 5 Oxygen framework.
+
+%package -n %{clibname}
+Summary: KDE Frameworks 5 Oxygen configuration framework
+Group: System/Libraries
+Requires: %{name} = %{EVRD}
+
+%description -n %{clibname}
+KDE Frameworks 5 Oxygen configuration framework.
+
+%prep
+%autosetup -p1 -n oxygen-%{?git:master}%{!?git:%{version}}
+%cmake \
+	-DBUILD_QCH:BOOL=ON \
+	-DBUILD_WITH_QT6:BOOL=ON \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
+	-G Ninja
+
+%build
+%ninja_build -C build
+
+%install
+%ninja_install -C build
+
+# omv backgrounds
+rm -rf %{buildroot}%{_datadir}/plasma/look-and-feel/org.kde.oxygen/contents/splash/images/background.png
+ln -sf %{_datadir}/mdk/backgrounds/default.png %{buildroot}%{_datadir}/plasma/look-and-feel/org.kde.oxygen/contents/splash/images/background.png
+
+# Useless, we don't have headers
+rm -f %{buildroot}%{_libdir}/liboxygenstyle%{major}.so
+rm -f %{buildroot}%{_libdir}/liboxygenstyleconfig%{major}.so
+
+# automatic gtk icon cache update on rpm installs/removals
+# (see http://wiki.mandriva.com/en/Rpm_filetriggers)
+install -d %{buildroot}%{_var}/lib/rpm/filetriggers
+cat > %{buildroot}%{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.filter << EOF
+^./usr/share/icons/KDE_Classic
+^./usr/share/icons/Oxygen_Black
+^./usr/share/icons/Oxygen_Blue
+^./usr/share/icons/Oxygen_White
+^./usr/share/icons/Oxygen_Yellow
+^./usr/share/icons/Oxygen_Zion
+EOF
+
+cat > %{buildroot}%{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.script << EOF
+#!/bin/sh
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    for i in KDE_Classic Oxygen_Black Oxygen_Blue Oxygen_White Oxygen_Yellow Oxygen_Zion; do
+	/usr/bin/gtk-update-icon-cache --force --quiet /usr/share/icons/$i
+    done
+fi
+EOF
+
+chmod 755 %{buildroot}%{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.script
+
+%find_lang liboxygenstyleconfig || touch liboxygenstyleconfig.lang
+%find_lang oxygen_style_config || touch oxygen_style_config.lang
+%find_lang oxygen_style_demo || touch oxygen_style_demo.lang
+%find_lang oxygen_kdecoration || touch oxygen_kdecoration.lang
+
+cat *.lang >oxygen-all.lang
+
+%files -f oxygen-all.lang
+%{_bindir}/oxygen-demo5
+%{_bindir}/oxygen-settings5
+%{_datadir}/color-schemes/Oxygen.colors
+%{_datadir}/color-schemes/OxygenCold.colors
+%{_iconsdir}/KDE_Classic
+%{_iconsdir}/Oxygen_Black
+%{_iconsdir}/Oxygen_Blue
+%{_iconsdir}/Oxygen_White
+%{_iconsdir}/Oxygen_Yellow
+%{_iconsdir}/Oxygen_Zion
+%{_iconsdir}/hicolor/*/apps/oxygen-settings.png
+%{_datadir}/kstyle/themes/oxygen.*
+%{_datadir}/plasma/look-and-feel/org.kde.oxygen
+%{_qtdir}/plugins/styles/oxygen.so
+%{_qtdir}/plugins/kstyle_oxygen_config.so
+%{_qtdir}/plugins/org.kde.kdecoration2/org.kde.oxygen.so
+%{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.*
+%{_datadir}/kservices6/oxygen*.desktop
+
+%files -n %{libname}
+%{_libdir}/liboxygenstyle%{major}.so.%{major}*
+
+%files -n %{clibname}
+%{_libdir}/liboxygenstyleconfig%{major}.so.%{major}*
