@@ -18,7 +18,6 @@ Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar
 %else
 Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/%{name}-%{version}.tar.xz
 %endif
-Source100: %{name}.rpmlintrc
 Patch0: oxygen-5.5.3-use-openmandriva-icon-and-background.patch
 BuildRequires: cmake(Qt6)
 BuildRequires: cmake(Qt6Core)
