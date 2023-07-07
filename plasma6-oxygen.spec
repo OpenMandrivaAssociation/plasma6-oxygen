@@ -4,7 +4,7 @@
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
-%define git 20230609
+%define git 20230707
 
 Summary: The Oxygen style for KDE 5
 Name: plasma6-oxygen
@@ -114,7 +114,7 @@ cat *.lang >oxygen-all.lang
 
 %files -f oxygen-all.lang
 %{_bindir}/oxygen-demo5
-%{_bindir}/oxygen-settings5
+%{_bindir}/oxygen-settings6
 %{_datadir}/color-schemes/Oxygen.colors
 %{_datadir}/color-schemes/OxygenCold.colors
 %{_iconsdir}/KDE_Classic
@@ -127,10 +127,11 @@ cat *.lang >oxygen-all.lang
 %{_datadir}/kstyle/themes/oxygen.*
 %{_datadir}/plasma/look-and-feel/org.kde.oxygen
 %{_qtdir}/plugins/styles/oxygen.so
-%{_qtdir}/plugins/kstyle_oxygen_config.so
 %{_qtdir}/plugins/org.kde.kdecoration2/org.kde.oxygen.so
 %{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.*
-%{_datadir}/kservices6/oxygen*.desktop
+%{_qtdir}/plugins/kstyle_config/kstyle_oxygen_config.so
+%{_qtdir}/plugins/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
+%{_datadir}/applications/kcm_oxygendecoration.desktop
 
 %files -n %{libname}
 %{_libdir}/liboxygenstyle%{major}.so.%{major}*
