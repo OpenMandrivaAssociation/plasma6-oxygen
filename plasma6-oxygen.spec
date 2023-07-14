@@ -35,6 +35,8 @@ BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(KF6Wayland)
+# Really BuildConflicts: xdg-desktop-portal-kde, but dnf builddep doesn't handle conflicts
+BuildRequires: plasma6-xdg-desktop-portal-kde
 Requires: %{libname} = %{EVRD}
 Requires: oxygen-icons >= 1:15.04.3
 Recommends: oxygen-sounds
