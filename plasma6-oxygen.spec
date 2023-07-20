@@ -9,7 +9,7 @@
 Summary: The Oxygen style for KDE 5
 Name: plasma6-oxygen
 Version:	5.240.0
-Release:	%{?git:0.%{git}.}2
+Release:	%{?git:0.%{git}.}3
 URL: http://kde.org/
 License: GPL
 Group: Graphical desktop/KDE
@@ -38,7 +38,7 @@ BuildRequires: cmake(KF6Wayland)
 # Really BuildConflicts: xdg-desktop-portal-kde, but dnf builddep doesn't handle conflicts
 BuildRequires: plasma6-xdg-desktop-portal-kde
 Requires: %{libname} = %{EVRD}
-Requires: kf6-oxygen-icons >= 1:15.04.3
+Requires: kf6-oxygen-icons
 Recommends: plasma6-oxygen-sounds
 # needed for backgrounds and patch 2
 Requires: distro-theme-OpenMandriva
