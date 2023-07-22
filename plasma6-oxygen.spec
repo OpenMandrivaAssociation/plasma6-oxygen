@@ -4,12 +4,12 @@
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
-%define git 20230715
+%define git 20230722
 
 Summary: The Oxygen style for KDE 5
 Name: plasma6-oxygen
 Version:	5.240.0
-Release:	%{?git:0.%{git}.}3
+Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
 Group: Graphical desktop/KDE
