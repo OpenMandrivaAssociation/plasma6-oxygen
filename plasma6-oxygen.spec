@@ -1,10 +1,12 @@
+%bcond_without qt5
+
 %define major 5
 %define libname %mklibname oxygenstyle%{major} %{major}
 %define clibname %mklibname oxygenstyleconfig%{major} %{major}
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
-%define git 20230825
+%define git 20230901
 
 Summary: The Oxygen style for KDE 5
 Name: plasma6-oxygen
@@ -42,6 +44,11 @@ Requires: kf6-oxygen-icons
 Recommends: plasma6-oxygen-sounds
 # needed for backgrounds and patch 2
 Requires: distro-theme-OpenMandriva
+%if %{with qt5}
+BuildRequires:	cmake(Qt5Core)
+BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5Widgets)
+%endif
 
 %description
 The Oxygen style for KDE 5.
@@ -116,6 +123,9 @@ cat *.lang >oxygen-all.lang
 
 %files -f oxygen-all.lang
 %{_bindir}/oxygen-demo5
+%{_bindir}/oxygen-demo6
+%{_libdir}/liboxygenstyle6.so.5*
+%{_libdir}/liboxygenstyleconfig6.so.5*
 %{_bindir}/oxygen-settings6
 %{_datadir}/color-schemes/Oxygen.colors
 %{_datadir}/color-schemes/OxygenCold.colors
@@ -128,7 +138,8 @@ cat *.lang >oxygen-all.lang
 %{_iconsdir}/hicolor/*/apps/oxygen-settings.png
 %{_datadir}/kstyle/themes/oxygen.*
 %{_datadir}/plasma/look-and-feel/org.kde.oxygen
-%{_qtdir}/plugins/styles/oxygen.so
+%{_libdir}/qt5/plugins/styles/oxygen5.so
+%{_qtdir}/plugins/styles/oxygen6.so
 %{_qtdir}/plugins/org.kde.kdecoration2/org.kde.oxygen.so
 %{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.*
 %{_qtdir}/plugins/kstyle_config/kstyle_oxygen_config.so
