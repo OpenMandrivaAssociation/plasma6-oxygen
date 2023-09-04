@@ -47,7 +47,11 @@ BuildRequires: cmake(KF5I18n)
 BuildRequires: cmake(KF5Config)
 BuildRequires: cmake(KF5CoreAddons)
 BuildRequires: cmake(KF5GuiAddons)
-BUildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5WidgetsAddons)
+BuildRequires: cmake(KF5Service)
+BuildRequires: cmake(KF5Completion)
+BuildRequires: cmake(KF5FrameworkIntegration)
+BuildRequires: cmake(KF5WindowSystem)
 %endif
 # Really BuildConflicts: xdg-desktop-portal-kde, but dnf builddep doesn't handle conflicts
 BuildRequires: plasma6-xdg-desktop-portal-kde
@@ -80,6 +84,13 @@ Requires: %{name} = %{EVRD}
 
 %description -n %{clibname}
 KDE Frameworks 5 Oxygen configuration framework.
+
+%package qt5
+Summary: Qt 5.x support for the Plasma 6.x Oxygen style
+Requires: %{name} = %{EVRD}
+
+%description qt5
+Qt 5.x support for the Plasma 6.x Oxygen style
 
 %prep
 %autosetup -p1 -n oxygen-%{?git:master}%{!?git:%{version}}
@@ -134,7 +145,6 @@ chmod 755 %{buildroot}%{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.
 cat *.lang >oxygen-all.lang
 
 %files -f oxygen-all.lang
-%{_bindir}/oxygen-demo5
 %{_bindir}/oxygen-demo6
 %{_libdir}/liboxygenstyle6.so.5*
 %{_libdir}/liboxygenstyleconfig6.so.5*
@@ -150,13 +160,16 @@ cat *.lang >oxygen-all.lang
 %{_iconsdir}/hicolor/*/apps/oxygen-settings.png
 %{_datadir}/kstyle/themes/oxygen.*
 %{_datadir}/plasma/look-and-feel/org.kde.oxygen
-%{_libdir}/qt5/plugins/styles/oxygen5.so
 %{_qtdir}/plugins/styles/oxygen6.so
 %{_qtdir}/plugins/org.kde.kdecoration2/org.kde.oxygen.so
 %{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.*
 %{_qtdir}/plugins/kstyle_config/kstyle_oxygen_config.so
 %{_qtdir}/plugins/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
 %{_datadir}/applications/kcm_oxygendecoration.desktop
+
+%files qt5
+%{_bindir}/oxygen-demo5
+%{_libdir}/qt5/plugins/styles/oxygen5.so
 
 %files -n %{libname}
 %{_libdir}/liboxygenstyle%{major}.so.%{major}*
