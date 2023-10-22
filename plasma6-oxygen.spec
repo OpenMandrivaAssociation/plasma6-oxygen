@@ -6,7 +6,7 @@
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
-%define git 20231014
+%define git 20231023
 
 Summary: The Oxygen style for KDE 5
 Name: plasma6-oxygen
@@ -21,6 +21,7 @@ Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar
 Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/%{name}-%{version}.tar.xz
 %endif
 Patch0: oxygen-5.5.3-use-openmandriva-icon-and-background.patch
+Patch1: oxygen-20231023-compile.patch
 BuildRequires: cmake(Qt6)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Gui)

@@ -1,0 +1,33 @@
+diff -up oxygen-master/kdecoration/oxygenbutton.cpp.omv~ oxygen-master/kdecoration/oxygenbutton.cpp
+diff -up oxygen-master/kdecoration/oxygendecoration.cpp.omv~ oxygen-master/kdecoration/oxygendecoration.cpp
+--- oxygen-master/kdecoration/oxygendecoration.cpp.omv~	2023-10-23 00:55:48.257661939 +0200
++++ oxygen-master/kdecoration/oxygendecoration.cpp	2023-10-23 00:55:58.491774432 +0200
+@@ -139,7 +139,7 @@ QColor Decoration::contrastColor(const Q
+ }
+ 
+ //________________________________________________________________
+-void Decoration::init()
++bool Decoration::init()
+ {
+     // active state change animation
+     m_animation->setStartValue(0);
+@@ -191,6 +191,7 @@ void Decoration::init()
+ 
+     createButtons();
+     updateShadow();
++    return true;
+ }
+ 
+ //________________________________________________________________
+diff -up oxygen-master/kdecoration/oxygendecoration.h.omv~ oxygen-master/kdecoration/oxygendecoration.h
+--- oxygen-master/kdecoration/oxygendecoration.h.omv~	2023-10-23 00:55:42.334596829 +0200
++++ oxygen-master/kdecoration/oxygendecoration.h	2023-10-23 00:55:45.226628621 +0200
+@@ -90,7 +90,7 @@ public:
+     //@}
+ 
+ public Q_SLOTS:
+-    void init() override;
++    bool init() override;
+ 
+ private Q_SLOTS:
+     void reconfigure();
