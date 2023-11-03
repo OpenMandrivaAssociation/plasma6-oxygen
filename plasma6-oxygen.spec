@@ -1,14 +1,16 @@
 %bcond_without qt5
 
-%define major 5
+%define major 6
+%define lib5name %mklibname oxygenstyle5 %{major}
+%define clib5name %mklibname oxygenstyleconfig5 %{major}
 %define libname %mklibname oxygenstyle%{major} %{major}
 %define clibname %mklibname oxygenstyleconfig%{major} %{major}
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "`echo %{version} |cut -d. -f3`" -ge 80 ] && echo -n un; echo -n stable)
 
-%define git 20231023
+%define git 20231103
 
-Summary: The Oxygen style for KDE 5
+Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
 Version:	5.240.0
 Release:	%{?git:0.%{git}.}1
@@ -21,7 +23,6 @@ Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar
 Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/%{name}-%{version}.tar.xz
 %endif
 Patch0: oxygen-5.5.3-use-openmandriva-icon-and-background.patch
-Patch1: oxygen-20231023-compile.patch
 BuildRequires: cmake(Qt6)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Gui)
@@ -68,23 +69,39 @@ BuildRequires:	cmake(Qt5Widgets)
 %endif
 
 %description
-The Oxygen style for KDE 5.
+The Oxygen style for KDE 6.
 
-%package -n %{libname}
+%package -n %{lib5name}
 Summary: KDE Frameworks 5 Oxygen framework
 Group: System/Libraries
 Requires: %{name} = %{EVRD}
 
-%description -n %{libname}
+%description -n %{lib5name}
 KDE Frameworks 5 Oxygen framework.
 
-%package -n %{clibname}
+%package -n %{clib5name}
 Summary: KDE Frameworks 5 Oxygen configuration framework
 Group: System/Libraries
 Requires: %{name} = %{EVRD}
 
-%description -n %{clibname}
+%description -n %{clib5name}
 KDE Frameworks 5 Oxygen configuration framework.
+
+%package -n %{libname}
+Summary: KDE Frameworks 6 Oxygen framework
+Group: System/Libraries
+Requires: %{name} = %{EVRD}
+
+%description -n %{libname}
+KDE Frameworks 6 Oxygen framework.
+
+%package -n %{clibname}
+Summary: KDE Frameworks 6 Oxygen configuration framework
+Group: System/Libraries
+Requires: %{name} = %{EVRD}
+
+%description -n %{clibname}
+KDE Frameworks 6 Oxygen configuration framework.
 
 %package qt5
 Summary: Qt 5.x support for the Plasma 6.x Oxygen style
@@ -171,6 +188,14 @@ cat *.lang >oxygen-all.lang
 %files qt5
 %{_bindir}/oxygen-demo5
 %{_libdir}/qt5/plugins/styles/oxygen5.so
+
+%files -n %{lib5name}
+%{_libdir}/liboxygenstyle5.so.%{major}*
+%{_libdir}/liboxygenstyle5.so.5*
+
+%files -n %{clib5name}
+%{_libdir}/liboxygenstyleconfig5.so.%{major}*
+%{_libdir}/liboxygenstyleconfig5.so.5*
 
 %files -n %{libname}
 %{_libdir}/liboxygenstyle%{major}.so.%{major}*
