@@ -1,6 +1,8 @@
 %bcond_without qt5
 
 %define major 6
+%define oldlibname %mklibname oxygenstyle5 5
+%define oldclibname %mklibname oxygenstyleconfig5 5
 %define lib5name %mklibname oxygenstyle5 %{major}
 %define clib5name %mklibname oxygenstyleconfig5 %{major}
 %define libname %mklibname oxygenstyle%{major} %{major}
@@ -91,6 +93,7 @@ KDE Frameworks 5 Oxygen configuration framework.
 Summary: KDE Frameworks 6 Oxygen framework
 Group: System/Libraries
 Requires: %{name} = %{EVRD}
+%rename %{oldlibname}
 
 %description -n %{libname}
 KDE Frameworks 6 Oxygen framework.
@@ -99,6 +102,7 @@ KDE Frameworks 6 Oxygen framework.
 Summary: KDE Frameworks 6 Oxygen configuration framework
 Group: System/Libraries
 Requires: %{name} = %{EVRD}
+%rename %{oldclibname}
 
 %description -n %{clibname}
 KDE Frameworks 6 Oxygen configuration framework.
