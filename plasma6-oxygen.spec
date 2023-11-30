@@ -14,8 +14,8 @@
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	5.27.80
-Release:	%{?git:0.%{git}.}2
+Version:	5.90.0
+Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
 Group: Graphical desktop/KDE
@@ -40,7 +40,7 @@ BuildRequires: cmake(KDecoration2) >= 5.27.80
 BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
-BuildRequires: cmake(KF6Wayland)
+BuildRequires: cmake(Wayland) >= 5.90.0
 %if %{with qt5}
 BuildRequires: cmake(Qt5)
 BuildRequires: cmake(Qt5Core)
