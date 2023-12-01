@@ -57,8 +57,6 @@ BuildRequires: cmake(KF5Completion)
 BuildRequires: cmake(KF5FrameworkIntegration)
 BuildRequires: cmake(KF5WindowSystem)
 %endif
-# Really BuildConflicts: xdg-desktop-portal-kde, but dnf builddep doesn't handle conflicts
-BuildRequires: plasma6-xdg-desktop-portal-kde
 Requires: %{libname} = %{EVRD}
 Requires: kf6-oxygen-icons
 Recommends: plasma6-oxygen-sounds
