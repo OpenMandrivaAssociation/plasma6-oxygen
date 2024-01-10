@@ -14,7 +14,7 @@
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	5.91.0
+Version:	5.92.0
 Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
@@ -25,7 +25,6 @@ Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar
 Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/oxygen-%{version}.tar.xz
 %endif
 Patch0: oxygen-5.5.3-use-openmandriva-icon-and-background.patch
-Patch1: https://invent.kde.org/plasma/oxygen/-/commit/b624e60afe0d7eaf12f31813dfd080a92bd496a4.patch
 BuildRequires: cmake(Qt6)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Gui)
@@ -187,6 +186,7 @@ cat *.lang >oxygen-all.lang
 %{_qtdir}/plugins/kstyle_config/kstyle_oxygen_config.so
 %{_qtdir}/plugins/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
 %{_datadir}/applications/kcm_oxygendecoration.desktop
+%{_datadir}/metainfo/org.kde.oxygen.appdata.xml
 
 %files qt5
 %{_bindir}/oxygen-demo5
