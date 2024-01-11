@@ -41,6 +41,7 @@ BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(Wayland) >= 5.90.0
+BuildRequires: cmake(Plasma) >= 5.90.0
 %if %{with qt5}
 BuildRequires: cmake(Qt5)
 BuildRequires: cmake(Qt5Core)
