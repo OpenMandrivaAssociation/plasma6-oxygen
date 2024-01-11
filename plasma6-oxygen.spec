@@ -42,6 +42,7 @@ BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(Wayland) >= 5.90.0
 BuildRequires: cmake(Plasma) = %{version}
+BuildRequires: cmake(PlasmaQuick) = %{version}
 %if %{with qt5}
 BuildRequires: cmake(Qt5)
 BuildRequires: cmake(Qt5Core)
