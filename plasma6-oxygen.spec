@@ -10,17 +10,19 @@
 %define plasmaver %(echo %{version} |cut -d. -f1-3)
 %define stable %([ "$(echo %{version} |cut -d. -f2)" -ge 80 -o "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
 
-#define git 20231103
+%define git 20240217
+%define gitbranch Plasma/6.0
+%define gitbranchd %(echo %{gitbranch} |sed -e "s,/,-,g")
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	5.93.0
+Version:	5.94.0
 Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
 Group: Graphical desktop/KDE
 %if 0%{?git:1}
-Source0:	https://invent.kde.org/plasma/oxygen/-/archive/master/oxygen-master.tar.bz2#/oxygen-%{git}.tar.bz2
+Source0:	https://invent.kde.org/plasma/oxygen/-/archive/%{gitbranch}/oxygen-%{gitbranchd}.tar.bz2#/oxygen-%{git}.tar.bz2
 %else
 Source0: http://download.kde.org/%{stable}/plasma/%{plasmaver}/oxygen-%{version}.tar.xz
 %endif
@@ -41,8 +43,8 @@ BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
 BuildRequires: cmake(Wayland) >= 5.90.0
-BuildRequires: cmake(Plasma) = %{version}
-BuildRequires: cmake(PlasmaQuick) = %{version}
+BuildRequires: cmake(Plasma) >= 5.90.0
+BuildRequires: cmake(PlasmaQuick) >= 5.90.0
 %if %{with qt5}
 BuildRequires: cmake(Qt5)
 BuildRequires: cmake(Qt5Core)
@@ -115,7 +117,7 @@ Requires: %{name} = %{EVRD}
 Qt 5.x support for the Plasma 6.x Oxygen style
 
 %prep
-%autosetup -p1 -n oxygen-%{?git:master}%{!?git:%{version}}
+%autosetup -p1 -n oxygen-%{?git:%{gitbranchd}}%{!?git:%{version}}
 %cmake \
 	-DBUILD_QCH:BOOL=ON \
 	-DBUILD_WITH_QT6:BOOL=ON \
@@ -168,8 +170,8 @@ cat *.lang >oxygen-all.lang
 
 %files -f oxygen-all.lang
 %{_bindir}/oxygen-demo6
-%{_libdir}/liboxygenstyle6.so.5*
-%{_libdir}/liboxygenstyleconfig6.so.5*
+%{_libdir}/liboxygenstyle6.so.6*
+%{_libdir}/liboxygenstyleconfig6.so.6*
 %{_bindir}/oxygen-settings6
 %{_datadir}/color-schemes/Oxygen.colors
 %{_datadir}/color-schemes/OxygenCold.colors
@@ -196,11 +198,9 @@ cat *.lang >oxygen-all.lang
 
 %files -n %{lib5name}
 %{_libdir}/liboxygenstyle5.so.%{major}*
-%{_libdir}/liboxygenstyle5.so.5*
 
 %files -n %{clib5name}
 %{_libdir}/liboxygenstyleconfig5.so.%{major}*
-%{_libdir}/liboxygenstyleconfig5.so.5*
 
 %files -n %{libname}
 %{_libdir}/liboxygenstyle%{major}.so.%{major}*
