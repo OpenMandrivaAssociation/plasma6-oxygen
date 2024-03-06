@@ -16,7 +16,7 @@
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	6.0.0
+Version:	6.0.1
 Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
