@@ -16,7 +16,7 @@
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	6.1.5
+Version:	6.2.0
 Release:	%{?git:0.%{git}.}1
 URL: http://kde.org/
 License: GPL
@@ -191,6 +191,7 @@ cat *.lang >oxygen-all.lang
 %{_qtdir}/plugins/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
 %{_datadir}/applications/kcm_oxygendecoration.desktop
 %{_datadir}/metainfo/org.kde.oxygen.appdata.xml
+%{_datadir}/plasma/desktoptheme/oxygen
 
 %files qt5
 %{_bindir}/oxygen-demo5
