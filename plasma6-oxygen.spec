@@ -16,7 +16,7 @@
 
 Summary: The Oxygen style for KDE 6
 Name: plasma6-oxygen
-Version:	6.2.5
+Version:	6.3.0
 Release:	%{?git:0.%{git}.}1
 URL: https://kde.org/
 License: GPL
@@ -38,7 +38,7 @@ BuildRequires: cmake(ECM)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6Completion)
 BuildRequires: cmake(KF6Service)
-BuildRequires: cmake(KDecoration2) >= 5.27.80
+BuildRequires: cmake(KDecoration3)
 BuildRequires: cmake(Gettext)
 BuildRequires: cmake(KF6FrameworkIntegration)
 BuildRequires: cmake(KF6KCMUtils)
@@ -185,10 +185,10 @@ cat *.lang >oxygen-all.lang
 %{_datadir}/kstyle/themes/oxygen.*
 %{_datadir}/plasma/look-and-feel/org.kde.oxygen
 %{_qtdir}/plugins/styles/oxygen6.so
-%{_qtdir}/plugins/org.kde.kdecoration2/org.kde.oxygen.so
+%{_qtdir}/plugins/org.kde.kdecoration3/org.kde.oxygen.so
 %{_var}/lib/rpm/filetriggers/gtk-icon-cache-plasma-oxygen.*
 %{_qtdir}/plugins/kstyle_config/kstyle_oxygen_config.so
-%{_qtdir}/plugins/org.kde.kdecoration2.kcm/kcm_oxygendecoration.so
+%{_qtdir}/plugins/org.kde.kdecoration3.kcm/kcm_oxygendecoration.so
 %{_datadir}/applications/kcm_oxygendecoration.desktop
 %{_datadir}/metainfo/org.kde.oxygen.appdata.xml
 %{_datadir}/plasma/desktoptheme/oxygen
